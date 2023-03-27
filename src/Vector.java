@@ -17,7 +17,7 @@ public class Vector {
     private void randomize(){
         Random chaos=new Random();
         for(int i=0;i<dimension;i++){
-            coordinates[i]=chaos.nextInt(range);
+            setCoordinate(i,chaos.nextInt(range));
         }
     }
 
@@ -50,7 +50,8 @@ public class Vector {
     }
 
     public void setCoordinate(int axis, int coordinate){
-        coordinates[axis]=Math.max((range-1),coordinate);
+        if(coordinate<0) coordinate=0;
+        coordinates[axis]=Math.min((range-1),coordinate);
     }
 
     public int[] get(){
@@ -58,8 +59,9 @@ public class Vector {
     }
 
     public void set(int coordinate){
+        if(coordinate<0) coordinate=0;
         for(int i=0;i<dimension;i++){
-            coordinates[i]=Math.max((range-1),coordinate);
+            coordinates[i]=Math.min((range-1),coordinate);
         }
     }
 

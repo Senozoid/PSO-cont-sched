@@ -9,7 +9,7 @@ public class FitnessDetails {
     public FitnessDetails(int containerNum, int hostNum){
         Scanner input=new Scanner(System.in);
         map=new float[containerNum][hostNum];
-        System.out.print("\n");
+        //System.out.print("\n");
         for(int i=0; i<containerNum; i++){
             for(int j=0; j<hostNum; j++) {
                 inner:
@@ -52,7 +52,14 @@ public class FitnessDetails {
         int[] values=pos.get();
         for(i=0; i<values.length; i++){
             j=values[i];
-            result+=map[i][j];
+            try {
+                result += map[i][j];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                e.printStackTrace();
+                System.out.println("i="+i+";j="+j);
+                System.out.println(Arrays.toString(map[0])+"\n"+Arrays.toString(map[1])+"\n"+Arrays.toString(map[2]));
+                System.exit(-1);
+            }
         }
         return result;
     }

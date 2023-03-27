@@ -24,6 +24,7 @@ public class Swarm {
                 change=true;
             }
         }
+        if(change) tellParticles();
         return change;
     }
 
@@ -33,12 +34,15 @@ public class Swarm {
                 updateBestsFrom(particle);
             }
         }
+        tellParticles();
     }
 
     private void updateBestsFrom(Particle particle){
         bestPos=particle.getBestPos();
         bestEval=particle.getBestEval();
-        //tellParticles();
+    }
+
+    private void tellParticles(){
         for(Particle listener : particles){
             listener.updateGlobal(bestPos);
         }

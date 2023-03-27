@@ -10,13 +10,11 @@ public class Particle {
     Vector globalBestPos;
 
     public Particle(int dimension, int range, FitnessDetails fitness){
-        position=new Vector(dimension, range, true);
+        position=new Vector(dimension, range, true);//set true after testing
         velocity=new Vector(dimension, range, true);
         bestPos=position;
         bestEval=fitness.eval(bestPos);
         this.fitness=fitness;
-        //pDist=new Vector(dimension, range, false);
-        //gDist=new Vector(dimension, range, false);
     }
 
     public Vector getPosition(){
@@ -35,7 +33,6 @@ public class Particle {
         updatePos();
         updateVel(parameters);
         updatePersonal();
-        //updateGlobal(globalBestPos);
         return bestEval;
     }
 

@@ -1,30 +1,38 @@
 import java.util.*;
+import java.util.concurrent.*;
 
 public class Optimizer {
 
     static Scanner input;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        int i;
         input = new Scanner(System.in);
-        System.out.println("This program attempts to use PSO for container scheduling");
+        System.out.println("\nThis program attempts to use PSO for container scheduling\n");
         int epochs = takeInt("Enter the number of epochs: ");
         int[] space = takeSpace();
         float[] parameters = takeParameters();
         FitnessDetails fitness = new FitnessDetails(space[1],space[2]);
         Swarm hive = new Swarm(space,fitness);
         System.out.print("\n");
-        for (int i=0; i<epochs; i++){
+        for (i=0; i<epochs; i++){
+            TimeUnit.MILLISECONDS.sleep(20);
             System.out.print("\rEpoch "+i+" : ");
             if(hive.update(parameters)){
-                //hive.updateBests();
-                System.out.print("          \n");
-                System.out.println("\tGlobal best position = "+hive.getBestPos().toString());
-                System.out.println("\tGlobal best evaluation = "+hive.getBestEval());
+                declare(hive);
             }
             else{
                 System.out.print("No change");
             }
         }
+        System.out.print("\rEpoch "+(i-1)+" : ");
+        declare(hive);
+    }
+
+    private static void declare(Swarm hive){
+        System.out.print("          \n");
+        System.out.println("\tGlobal best position = "+hive.getBestPos().toString());
+        System.out.println("\tGlobal best evaluation = "+hive.getBestEval());
     }
 
     private static int[] takeSpace(){

@@ -1,6 +1,6 @@
 # PSO for Container Scheduling (INCOMPLETE)
 
-This program attempts to demonstrate how Particle Swarm Optimization might be implemented for container scheduling.
+This program attempts to demonstrate how Particle Swarm Optimization might be implemented for container scheduling. \
 It's incomplete, and currently looks like [this](https://youtu.be/Dk3ay3QO5m8).
 
 ## How to run this program

@@ -1,75 +1,80 @@
+import java.io.*;
 import java.util.*;
 
 public class FitnessDetails {
-    boolean real;
-    float[][] map;
-    int[] coefficients;
 
-    //constructor that creates fitness function from user input
+    float seed=10;
+    float[][] map;
+
     public FitnessDetails(int containerNum, int hostNum){
-        Scanner input=new Scanner(System.in);
         map=new float[containerNum][hostNum];
-        //System.out.print("\n");
-        for(int i=0; i<containerNum; i++){
-            for(int j=0; j<hostNum; j++) {
-                inner:
+        populateAuto(containerNum, hostNum);
+        populateManual(containerNum, hostNum);
+    }
+
+    //option for user to input mapping, or skip
+    public void populateManual(int containerNum, int hostNum){
+        Scanner input=new Scanner(System.in);
+        float val;
+        int i,j,r;
+        manual:
+        for(i=0; i<containerNum; i++){
+            for(j=0; j<hostNum; j++) {
+                cls();
+                System.out.println("Fitness mapping:");
+                for(r=0; r<containerNum; r++){
+                    System.out.println(Arrays.toString(map[r]));
+                }
                 while (true){
-                    System.out.print("\nResource units used by host " + j + " to run container " + i + " : ");
+                    System.out.print("\nResource units used by host " + j + " to run container " + i + " [0=skip]: ");
                     try{
-                        map[i][j] = input.nextFloat();
-                        break inner;
-                    }catch(InputMismatchException e){}
+                        val = input.nextFloat();
+                        if(val==0){
+                            break manual;
+                        }
+                        map[i][j] = val;
+                        break;
+                    }catch(InputMismatchException e){
+                        System.out.println("Please input a number.");
+                    }
                 }
             }
         }
-        real=true;
     }
 
-    //constructor that creates a random, linear fitness function
-    public FitnessDetails(int dimension){
-        Random simulator=new Random();
-        int factor=1;
-        coefficients=new int[dimension];
-        for(int i=0; i<dimension; i++){
-            while(factor>10||factor<-10) factor=simulator.nextInt();
-            coefficients[i]=factor;
+    //inverted pyramid shaped mapping
+    private void populateAuto(int containerNum, int hostNum){
+        float val0, val1, val2, val3;
+        for(int i=0; i<containerNum; i++){
+            for(int j=0; j<hostNum; j++) {
+                val0=i-(containerNum/2);
+                val1=j-(hostNum/2);
+                val2=Math.abs(val0)+Math.abs(val1);
+                val3=val2+seed;
+                map[i][j]=val3;
+            }
         }
-        real=false;
     }
 
-    //redirecting method
+    //evaluation process of fitness function
     public float eval(Vector pos){
-        float result;
-        if(real) result=trueEval(pos);
-        else result=simEval(pos);
-        return result;
-    }
-
-    //evaluation process if fitness function was manually created
-    private float trueEval(Vector pos){
         int i,j;
         float result=0;
         int[] values=pos.get();
         for(i=0; i<values.length; i++){
             j=values[i];
-            try {
-                result += map[i][j];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                e.printStackTrace();
-                System.out.println("i="+i+";j="+j);
-                System.out.println(Arrays.toString(map[0])+"\n"+Arrays.toString(map[1])+"\n"+Arrays.toString(map[2]));
-                System.exit(-1);
-            }
+            result += map[i][j];
         }
         return result;
     }
 
-    //evaluation process if fitness function was simulated
-    private float simEval(Vector pos){
-        float result=0;
-        for(int i=0; i<coefficients.length; i++){
-            result+=coefficients[i]*pos.getCoordinate(i);
-        }
-        return result;
+    public void cls(){
+        try{
+            if(System.getProperty("os.name").contains("Windows"))
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            else
+                Runtime.getRuntime().exec("clear");
+        }catch(IOException | InterruptedException ex){}
     }
+
 }

@@ -40,7 +40,7 @@ public class Vector {
     public Vector mul(float toMul){
         Vector prod=new Vector(dimension,range,false);
         for(int i=0;i<dimension;i++){
-            prod.setCoordinate(i, (int)(toMul*coordinates[i]));
+            prod.setCoordinate(i, (toMul*coordinates[i]));
         }
         return prod;
     }
@@ -51,7 +51,14 @@ public class Vector {
 
     public void setCoordinate(int axis, int coordinate){
         if(coordinate<0) coordinate=0;
-        coordinates[axis]=Math.min((range-1),coordinate);
+        if(coordinate>=range) coordinate=(range-1);
+        coordinates[axis]=coordinate;
+    }
+
+    public void setCoordinate(int axis, float coordinate){
+        if(coordinate<0) coordinate=0;
+        if(coordinate>=range) coordinate=(range-1);
+        coordinates[axis]=Math.round(coordinate);
     }
 
     public int[] get(){
@@ -61,7 +68,7 @@ public class Vector {
     public void set(int coordinate){
         if(coordinate<0) coordinate=0;
         for(int i=0;i<dimension;i++){
-            coordinates[i]=Math.min((range-1),coordinate);
+            setCoordinate(i,coordinate);
         }
     }
 

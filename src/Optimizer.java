@@ -5,18 +5,29 @@ public class Optimizer {
 
     static Scanner input;
 
-    public static void main(String[] args) throws InterruptedException {
-        int i;
+    public static void main(String[] args){
+        int i=0;
         input = new Scanner(System.in);
         System.out.println("\nThis program attempts to use PSO for container scheduling\n");
         int epochs = takeInt("Enter the number of epochs: ");
         int[] space = takeSpace();
-        float[] parameters = takeParameters();
         FitnessDetails fitness = new FitnessDetails(space[1],space[2]);
         Swarm hive = new Swarm(space,fitness);
         System.out.print("\n");
+        try {
+            i=search(hive,epochs);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.print("\rEpoch "+(i-1)+" : ");
+        declare(hive);
+    }
+
+    private static int search(Swarm hive, int epochs) throws InterruptedException {
+        int i;
+        float[] parameters = takeParameters();
         for (i=0; i<epochs; i++){
-            TimeUnit.MILLISECONDS.sleep(20);
+            TimeUnit.MILLISECONDS.sleep(10);
             System.out.print("\rEpoch "+i+" : ");
             if(hive.update(parameters)){
                 declare(hive);
@@ -25,8 +36,7 @@ public class Optimizer {
                 System.out.print("No change");
             }
         }
-        System.out.print("\rEpoch "+(i-1)+" : ");
-        declare(hive);
+        return i;
     }
 
     private static void declare(Swarm hive){

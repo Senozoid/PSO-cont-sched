@@ -10,8 +10,8 @@ public class Particle {
     Vector globalBestPos;
 
     public Particle(int dimension, int range, FitnessDetails fitness){
-        position=new Vector(dimension, range, true);//set true after testing
-        velocity=new Vector(dimension, range, true);
+        position=new Vector(dimension, range, true);//true=cannot be less than 0
+        velocity=new Vector(dimension, range, false);
         bestPos=position;
         bestEval=fitness.eval(bestPos);
         this.fitness=fitness;
@@ -19,6 +19,10 @@ public class Particle {
 
     public Vector getPosition(){
         return position;
+    }
+
+    public Vector getVelocity(){
+        return velocity;
     }
 
     public Vector getBestPos(){
@@ -41,14 +45,19 @@ public class Particle {
     }
 
     private void updateVel(float[] parameters){
+        float inertia=parameters[0];
+        float cognitive=parameters[1];
+        float social=parameters[2];
+        float randLim=parameters[3];
+
         Random impulse=new Random();
         Vector[] terms=new Vector[3];
         Vector pDist=bestPos.sub(position);
         Vector gDist=globalBestPos.sub(position);
 
-        terms[0]=velocity.mul(parameters[0]);//old velocity * inertia
-        terms[1]=pDist.mul(parameters[1]).mul(impulse.nextFloat(parameters[3])+1);//cognitive component * random
-        terms[2]=gDist.mul(parameters[2]).mul(impulse.nextFloat(parameters[3])+1);//social component * random
+        terms[0]=velocity.mul(inertia);//old velocity * inertia
+        terms[1]=pDist.mul(cognitive).mul(impulse.nextFloat(-randLim,randLim+1));//cognitive component * random
+        terms[2]=gDist.mul(social).mul(impulse.nextFloat(-randLim,randLim+1));//social component * random
 
         velocity=terms[0].add(terms[1]).add(terms[2]);
     }

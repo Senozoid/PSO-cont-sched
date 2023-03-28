@@ -26,10 +26,10 @@ public class FitnessDetails {
                     System.out.println(Arrays.toString(map[r]));
                 }
                 while (true){
-                    System.out.print("\nResource units used by host " + j + " to run container " + i + " [0=skip]: ");
+                    System.out.print("\nResource units used by host " + j + " to run container " + i + " [0>=skip]: ");
                     try{
                         val = input.nextFloat();
-                        if(val==0){
+                        if(val<=0){
                             break manual;
                         }
                         map[i][j] = val;
@@ -60,15 +60,15 @@ public class FitnessDetails {
     public float eval(Vector pos){
         int i,j;
         float result=0;
-        int[] values=pos.get();
-        for(i=0; i<values.length; i++){
-            j=values[i];
+        int[] coordinates=pos.get();
+        for(i=0; i<coordinates.length; i++){
+            j=coordinates[i];
             result += map[i][j];
         }
         return result;
     }
 
-    public void cls(){
+    public static void cls(){
         try{
             if(System.getProperty("os.name").contains("Windows"))
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();

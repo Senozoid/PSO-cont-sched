@@ -27,13 +27,18 @@ public class Optimizer {
         int i;
         float[] parameters = takeParameters();
         for (i=0; i<epochs; i++){
-            TimeUnit.MILLISECONDS.sleep(10);
-            System.out.print("\rEpoch "+i+" : ");
+            //TimeUnit.MILLISECONDS.sleep(5); //uncomment
+            TimeUnit.SECONDS.sleep(1); //for debugging
+            //System.out.print("\rEpoch "+i+" : "); //uncomment
             if(hive.update(parameters)){
                 declare(hive);
             }
             else{
-                System.out.print("No change");
+                //System.out.print("No change"); //uncomment
+                //following lines for debugging:
+                FitnessDetails.cls(); //for debugging
+                hive.printPositions(); //for debugging
+                hive.printVelocities(); //for debugging
             }
         }
         return i;
@@ -69,7 +74,7 @@ public class Optimizer {
             try{
                 num = input.nextInt();
                 if (num <= 0) {
-                    System.out.println("Number must be positive.");
+                    System.out.println("This input must be a positive integer.");
                 } else {
                     break;
                 }

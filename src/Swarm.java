@@ -56,4 +56,19 @@ public class Swarm {
         return bestEval;
     }
 
+    //for debugging:
+    public void printVelocities() {
+        System.out.print("\n");
+        for (Particle p:particles){
+            System.out.println(p.getVelocity());
+        }
+    }
+
+    //for debugging
+    public void printPositions() {
+        System.out.print("\n");
+        for (Particle p:particles){
+            System.out.println(p.getPosition());
+        }
+    }
 }

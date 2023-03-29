@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -27,19 +31,15 @@ public class Optimizer {
         int i;
         float[] parameters = takeParameters();
         for (i=0; i<epochs; i++){
-            //TimeUnit.MILLISECONDS.sleep(5); //uncomment
-            TimeUnit.SECONDS.sleep(1); //for debugging
-            //System.out.print("\rEpoch "+i+" : "); //uncomment
+            TimeUnit.MILLISECONDS.sleep(3);
+            System.out.print("\rEpoch "+i+" : ");
             if(hive.update(parameters)){
                 declare(hive);
             }
             else{
-                //System.out.print("No change"); //uncomment
-                //following lines for debugging:
-                FitnessDetails.cls(); //for debugging
-                hive.printPositions(); //for debugging
-                hive.printVelocities(); //for debugging
+                System.out.print("No change");
             }
+            logParticles(hive,i);
         }
         return i;
     }
@@ -101,6 +101,47 @@ public class Optimizer {
             }
         }
         return num;
+    }
+
+    private static void logParticles(Swarm hive, int i){
+        PrintStream console=System.out;
+        System.setOut(redirect(1));
+        System.out.println("EPOCH "+i+" :");
+        System.out.println("Positions");
+        hive.printPositions();
+        System.out.println("Velocities");
+        hive.printVelocities();
+        System.setOut(console);
+    }
+
+    public static PrintStream redirect(int type) {
+        boolean status=false;
+        String filename = switch(type){
+            case 0 -> "mapping.txt";
+            case 1 -> "log.txt";
+            default -> "undefined.txt";
+        };
+        File log=new File(filename);
+        PrintStream logger=null;
+        try {
+            logger=new PrintStream(log);
+            status=true;
+        } catch (FileNotFoundException e) {
+            System.err.println("Log file cannot be written.");
+        } catch (SecurityException e) {
+            System.err.println("Log write access was denied.");
+        }
+        if(!status) System.exit(-1);
+        return logger;
+    }
+
+    public static void cls(){
+        try{
+            if(System.getProperty("os.name").contains("Windows"))
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            else
+                Runtime.getRuntime().exec("clear");
+        }catch(IOException | InterruptedException ex){}
     }
 
 }

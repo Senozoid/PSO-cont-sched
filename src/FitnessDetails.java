@@ -10,6 +10,17 @@ public class FitnessDetails {
         map=new float[containerNum][hostNum];
         populateAuto(containerNum, hostNum);
         populateManual(containerNum, hostNum);
+        logMapping(containerNum);
+    }
+
+    private void logMapping(int containerNum) {
+        PrintStream console=System.out;
+        System.setOut(Optimizer.redirect(0));
+        System.out.println("FITNESS MAPPING :");
+        for(int r=0; r<containerNum; r++){
+            System.out.println(Arrays.toString(map[r]));
+        }
+        System.setOut(console);
     }
 
     //option for user to input mapping, or skip
@@ -20,7 +31,7 @@ public class FitnessDetails {
         manual:
         for(i=0; i<containerNum; i++){
             for(j=0; j<hostNum; j++) {
-                cls();
+                Optimizer.cls();
                 System.out.println("Fitness mapping:");
                 for(r=0; r<containerNum; r++){
                     System.out.println(Arrays.toString(map[r]));
@@ -66,15 +77,6 @@ public class FitnessDetails {
             result += map[i][j];
         }
         return result;
-    }
-
-    public static void cls(){
-        try{
-            if(System.getProperty("os.name").contains("Windows"))
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            else
-                Runtime.getRuntime().exec("clear");
-        }catch(IOException | InterruptedException ex){}
     }
 
 }

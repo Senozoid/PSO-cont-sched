@@ -3,7 +3,7 @@ import java.util.*;
 public class Vector {
 
     public final int dimension;
-    final int range;
+    public final int range;
     boolean index;
     private int[] coordinates;
 
@@ -72,7 +72,7 @@ public class Vector {
     }
 
     public int[] get(){
-        return coordinates;
+        return coordinates.clone();
     }
 
     /*

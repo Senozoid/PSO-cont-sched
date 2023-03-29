@@ -1,17 +1,28 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
 
 public class Optimizer {
 
-    static Scanner input;
+    public static final Scanner input=new Scanner(System.in);
+    public static final PrintStream console=System.out;
+    public static final File log=new File("log.txt");
+    public static PrintStream logger;
 
     public static void main(String[] args){
         int i=0;
-        input = new Scanner(System.in);
+
+        boolean status=false;
+        try{
+            logger=new PrintStream(log);
+            status=true;
+        } catch (FileNotFoundException e) {
+            System.err.println("Log file cannot be written.");
+        } catch (SecurityException e) {
+            System.err.println("Log write access was denied.");
+        }
+        if(!status) System.exit(-1);
+
         System.out.println("\nThis program attempts to use PSO for container scheduling\n");
         int epochs = takeInt("Enter the number of epochs: ");
         int[] space = takeSpace();
@@ -104,35 +115,13 @@ public class Optimizer {
     }
 
     private static void logParticles(Swarm hive, int i){
-        PrintStream console=System.out;
-        System.setOut(redirect(1));
-        System.out.println("EPOCH "+i+" :");
+        System.setOut(logger);
+        System.out.println("\nEPOCH "+i+" :\n");
         System.out.println("Positions");
         hive.printPositions();
         System.out.println("Velocities");
         hive.printVelocities();
         System.setOut(console);
-    }
-
-    public static PrintStream redirect(int type) {
-        boolean status=false;
-        String filename = switch(type){
-            case 0 -> "mapping.txt";
-            case 1 -> "log.txt";
-            default -> "undefined.txt";
-        };
-        File log=new File(filename);
-        PrintStream logger=null;
-        try {
-            logger=new PrintStream(log);
-            status=true;
-        } catch (FileNotFoundException e) {
-            System.err.println("Log file cannot be written.");
-        } catch (SecurityException e) {
-            System.err.println("Log write access was denied.");
-        }
-        if(!status) System.exit(-1);
-        return logger;
     }
 
     public static void cls(){

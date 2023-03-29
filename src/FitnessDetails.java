@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class FitnessDetails {
@@ -14,13 +13,12 @@ public class FitnessDetails {
     }
 
     private void logMapping(int containerNum) {
-        PrintStream console=System.out;
-        System.setOut(Optimizer.redirect(0));
+        System.setOut(Optimizer.logger);
         System.out.println("FITNESS MAPPING :");
         for(int r=0; r<containerNum; r++){
             System.out.println(Arrays.toString(map[r]));
         }
-        System.setOut(console);
+        System.setOut(Optimizer.console);
     }
 
     //option for user to input mapping, or skip

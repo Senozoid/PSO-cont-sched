@@ -1,6 +1,4 @@
-# PSO for Container Scheduling (INCOMPLETE)
-
-**TRYING TO FIX A BUG OVER AT [A DIFFERENT BRANCH](https://github.com/Senozoid/PSO-cont-sched/tree/bugfinder), CURRENTLY THE CODE WON'T WORK**
+# PSO for Container Scheduling (ALMOST COMPLETE)
 
 This program attempts to demonstrate how Particle Swarm Optimization might be implemented for container scheduling. \
 It's incomplete, and currently looks like [this](https://youtu.be/MwZ1RjkcAKc). \

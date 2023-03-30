@@ -1,6 +1,4 @@
-# PSO for Container Scheduling (INCOMPLETE)
-
-**THIS IS A BUG-FINDING BRANCH, THE CODE WON'T WORK**
+# PSO for Container Scheduling (ALMOST COMPLETE)
 
 This program attempts to demonstrate how Particle Swarm Optimization might be implemented for container scheduling. \
 It's incomplete, and currently looks like [this](https://youtu.be/MwZ1RjkcAKc). \

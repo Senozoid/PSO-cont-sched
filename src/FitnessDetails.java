@@ -12,6 +12,7 @@ public class FitnessDetails {
         logMapping(containerNum);
     }
 
+    //log the final fitness mapping
     private void logMapping(int containerNum) {
         System.setOut(Optimizer.logger);
         System.out.println("FITNESS MAPPING :");
@@ -51,7 +52,7 @@ public class FitnessDetails {
         }
     }
 
-    //inverted pyramid shaped mapping
+    //inverted tetrahedron shaped mapping (imagine a page with 2 perpendicular creases, both "closing" upwards, like a book)
     private void populateAuto(int containerNum, int hostNum){
         float val0, val1, val2, val3;
         for(int i=0; i<containerNum; i++){

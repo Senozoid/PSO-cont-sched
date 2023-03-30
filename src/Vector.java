@@ -4,21 +4,13 @@ public class Vector {
 
     public final int dimension;
     public final int range;
-    boolean index;
+    boolean nonNeg;
     private int[] coordinates;
 
-    public Vector(int dimension, int range, boolean index){
+    public Vector(int dimension, int range, boolean nonNeg){
         this.dimension=dimension;
         this.range=range;
-        this.index=index;
-        coordinates=new int[dimension];
-        randomize();
-    }
-
-    public Vector(int dimension){
-        this.dimension=dimension;
-        range=Integer.MAX_VALUE;
-        index=false;
+        this.nonNeg=nonNeg;
         coordinates=new int[dimension];
         randomize();
     }
@@ -26,13 +18,13 @@ public class Vector {
     private void randomize(){
         Random chaos=new Random();
         for(int i=0;i<dimension;i++){
-            if(index) setCoordinate(i,chaos.nextInt(range+1));
-            else setCoordinate(i,chaos.nextInt(-100,101));
+            if(nonNeg) setCoordinate(i,chaos.nextInt(range));
+            else setCoordinate(i,chaos.nextInt(-range+1,range));
         }
     }
 
     public Vector add(Vector toAdd){
-        Vector sum=new Vector(dimension);
+        Vector sum=new Vector(dimension,range,false);
         for(int i=0;i<dimension;i++){
             sum.setCoordinate(i,(coordinates[i]+toAdd.getCoordinate(i)));
         }
@@ -40,7 +32,7 @@ public class Vector {
     }
 
     public Vector sub(Vector toSub) {
-        Vector diff=new Vector(dimension);
+        Vector diff=new Vector(dimension,range,false);
         for(int i=0;i<dimension;i++){
             diff.setCoordinate(i,(coordinates[i]-toSub.getCoordinate(i)));
         }
@@ -48,7 +40,7 @@ public class Vector {
     }
 
     public Vector mul(float toMul){
-        Vector prod=new Vector(dimension);
+        Vector prod=new Vector(dimension,range,false);
         for(int i=0;i<dimension;i++){
             prod.setCoordinate(i, (toMul*coordinates[i]));
         }
@@ -60,13 +52,13 @@ public class Vector {
     }
 
     public void setCoordinate(int axis, int coordinate){
-        if(index && (coordinate<0)) coordinate=0;
+        if(nonNeg && (coordinate<0)) coordinate=0;
         if(coordinate>=range) coordinate=(range-1);
         coordinates[axis]=coordinate;
     }
 
     public void setCoordinate(int axis, float coordinate){
-        if(index && (coordinate<0)) coordinate=0;
+        if(nonNeg && (coordinate<0)) coordinate=0;
         if(coordinate>=range) coordinate=(range-1);
         coordinates[axis]=Math.round(coordinate);
     }
@@ -74,14 +66,6 @@ public class Vector {
     public int[] get(){
         return coordinates.clone();
     }
-
-    /*
-    public void set(int coordinate){
-        for(int i=0;i<dimension;i++){
-            setCoordinate(i,coordinate);
-        }
-    }
-    */
 
     public String toString(){
         return Arrays.toString(coordinates);

@@ -143,7 +143,9 @@ public class Optimizer {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             else
                 Runtime.getRuntime().exec("clear");
-        }catch(IOException | InterruptedException ex){}
+        }catch(IOException | InterruptedException ex){
+            System.out.print("\n");
+        }
     }
 
 }

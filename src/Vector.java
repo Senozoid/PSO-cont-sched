@@ -24,15 +24,15 @@ public class Vector {
     }
 
     public Vector add(Vector toAdd){
-        Vector sum=new Vector(dimension,range,false);
+        Vector sum=new Vector(dimension,range,nonNeg);
         for(int i=0;i<dimension;i++){
             sum.setCoordinate(i,(coordinates[i]+toAdd.getCoordinate(i)));
         }
         return sum;
     }
 
-    public Vector sub(Vector toSub) {
-        Vector diff=new Vector(dimension,range,false);
+    public Vector sub(Vector toSub){
+        Vector diff=new Vector(dimension,range,false);//nonNeg has to remain false here
         for(int i=0;i<dimension;i++){
             diff.setCoordinate(i,(coordinates[i]-toSub.getCoordinate(i)));
         }
@@ -40,7 +40,7 @@ public class Vector {
     }
 
     public Vector mul(float toMul){
-        Vector prod=new Vector(dimension,range,false);
+        Vector prod=new Vector(dimension,range,nonNeg);
         for(int i=0;i<dimension;i++){
             prod.setCoordinate(i, (toMul*coordinates[i]));
         }

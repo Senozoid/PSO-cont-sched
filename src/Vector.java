@@ -58,9 +58,7 @@ public class Vector {
     }
 
     public void setCoordinate(int axis, float coordinate){
-        if(nonNeg && (coordinate<0)) coordinate=0;
-        if(coordinate>=range) coordinate=(range-1);
-        coordinates[axis]=Math.round(coordinate);
+        setCoordinate(axis,Math.round(coordinate));
     }
 
     public int[] get(){

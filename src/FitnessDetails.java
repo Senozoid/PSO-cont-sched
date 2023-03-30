@@ -36,7 +36,7 @@ public class FitnessDetails {
                     System.out.println(Arrays.toString(map[r]));
                 }
                 while (true){
-                    System.out.print("\nResource units used by host " + j + " to run container " + i + " [0>=skip]: ");
+                    System.out.print("\nResource units used by host " + j + " to run container " + i + " [skip<=0]: ");
                     try{
                         val = input.nextFloat();
                         if(val<=0){
@@ -45,11 +45,12 @@ public class FitnessDetails {
                         map[i][j] = val;
                         break;
                     }catch(InputMismatchException e){
-                        System.out.println("Please input a number.");
+                        System.out.println("Please input an integer.");
                     }
                 }
             }
         }
+        Optimizer.cls();
     }
 
     //inverted tetrahedron shaped mapping (imagine a page with 2 perpendicular creases, both "closing" upwards, like a book)

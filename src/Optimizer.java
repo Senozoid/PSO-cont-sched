@@ -47,8 +47,9 @@ public class Optimizer {
     private static int search(Swarm hive, int epochs) throws InterruptedException {
         int i;
         float[] parameters = takeParameters();
+        System.out.print("\n");
         for (i=0; i<epochs; i++){
-            TimeUnit.MILLISECONDS.sleep(3);
+            //TimeUnit.MILLISECONDS.sleep(3);
             System.out.print("\rEpoch "+i+" : ");
             if(hive.update(parameters)){
                 declare(hive);
@@ -128,10 +129,10 @@ public class Optimizer {
     //log the position and velocity of all particles in the given swarm
     private static void logParticles(Swarm hive, int i){
         System.setOut(logger);
-        System.out.println("\nEPOCH "+i+" :\n");
-        System.out.println("Positions");
+        System.out.println("\nEPOCH "+i+" :");
+        System.out.println("\nPositions");
         hive.printPositions();
-        System.out.println("Velocities");
+        System.out.println("\nVelocities");
         hive.printVelocities();
         System.setOut(console);
     }

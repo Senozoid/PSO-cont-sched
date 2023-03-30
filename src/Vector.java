@@ -3,21 +3,23 @@ import java.util.*;
 public class Vector {
 
     public final int dimension;
-    final int range;
-    int[] coordinates;
+    public final int range;
+    boolean nonNeg;
+    private int[] coordinates;
 
-    public Vector(int dimension, int range, boolean randomness){
+    public Vector(int dimension, int range, boolean nonNeg){
         this.dimension=dimension;
         this.range=range;
+        this.nonNeg=nonNeg;
         coordinates=new int[dimension];
-        if(randomness) randomize();
-        else set(0);
+        randomize();
     }
 
     private void randomize(){
         Random chaos=new Random();
         for(int i=0;i<dimension;i++){
-            setCoordinate(i,chaos.nextInt(range));
+            if(nonNeg) setCoordinate(i,chaos.nextInt(range));
+            else setCoordinate(i,chaos.nextInt(-range+1,range));
         }
     }
 
@@ -50,26 +52,19 @@ public class Vector {
     }
 
     public void setCoordinate(int axis, int coordinate){
-        if(coordinate<0) coordinate=0;
+        if(nonNeg && (coordinate<0)) coordinate=0;
         if(coordinate>=range) coordinate=(range-1);
         coordinates[axis]=coordinate;
     }
 
     public void setCoordinate(int axis, float coordinate){
-        if(coordinate<0) coordinate=0;
+        if(nonNeg && (coordinate<0)) coordinate=0;
         if(coordinate>=range) coordinate=(range-1);
         coordinates[axis]=Math.round(coordinate);
     }
 
     public int[] get(){
-        return coordinates;
-    }
-
-    public void set(int coordinate){
-        if(coordinate<0) coordinate=0;
-        for(int i=0;i<dimension;i++){
-            setCoordinate(i,coordinate);
-        }
+        return coordinates.clone();
     }
 
     public String toString(){

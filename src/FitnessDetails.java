@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class FitnessDetails {
@@ -10,6 +9,17 @@ public class FitnessDetails {
         map=new float[containerNum][hostNum];
         populateAuto(containerNum, hostNum);
         populateManual(containerNum, hostNum);
+        logMapping(containerNum);
+    }
+
+    //log the final fitness mapping
+    private void logMapping(int containerNum) {
+        System.setOut(Optimizer.logger);
+        System.out.println("FITNESS MAPPING :");
+        for(int r=0; r<containerNum; r++){
+            System.out.println(Arrays.toString(map[r]));
+        }
+        System.setOut(Optimizer.console);
     }
 
     //option for user to input mapping, or skip
@@ -20,16 +30,16 @@ public class FitnessDetails {
         manual:
         for(i=0; i<containerNum; i++){
             for(j=0; j<hostNum; j++) {
-                cls();
+                Optimizer.cls();
                 System.out.println("Fitness mapping:");
                 for(r=0; r<containerNum; r++){
                     System.out.println(Arrays.toString(map[r]));
                 }
                 while (true){
-                    System.out.print("\nResource units used by host " + j + " to run container " + i + " [0=skip]: ");
+                    System.out.print("\nResource units used by host " + j + " to run container " + i + " [0>=skip]: ");
                     try{
                         val = input.nextFloat();
-                        if(val==0){
+                        if(val<=0){
                             break manual;
                         }
                         map[i][j] = val;
@@ -42,7 +52,7 @@ public class FitnessDetails {
         }
     }
 
-    //inverted pyramid shaped mapping
+    //inverted tetrahedron shaped mapping (imagine a page with 2 perpendicular creases, both "closing" upwards, like a book)
     private void populateAuto(int containerNum, int hostNum){
         float val0, val1, val2, val3;
         for(int i=0; i<containerNum; i++){
@@ -60,21 +70,12 @@ public class FitnessDetails {
     public float eval(Vector pos){
         int i,j;
         float result=0;
-        int[] values=pos.get();
-        for(i=0; i<values.length; i++){
-            j=values[i];
+        int[] coordinates=pos.get();
+        for(i=0; i<coordinates.length; i++){
+            j=coordinates[i];
             result += map[i][j];
         }
         return result;
-    }
-
-    public void cls(){
-        try{
-            if(System.getProperty("os.name").contains("Windows"))
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            else
-                Runtime.getRuntime().exec("clear");
-        }catch(IOException | InterruptedException ex){}
     }
 
 }

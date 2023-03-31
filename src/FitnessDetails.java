@@ -53,7 +53,7 @@ public class FitnessDetails {
         Optimizer.cls();
     }
 
-    //inverted tetrahedron shaped mapping (imagine a page with 2 perpendicular creases, both "closing" upwards, like a book)
+    //inverted pentahedron shaped mapping (imagine a sheet with 2 perpendicular creases, both "closing" upwards like a book)
     private void populateAuto(int containerNum, int hostNum){
         float val0, val1, val2, val3;
         for(int i=0; i<containerNum; i++){

@@ -36,7 +36,7 @@ public class FitnessDetails {
                     System.out.println(Arrays.toString(map[r]));
                 }
                 while (true){
-                    System.out.print("\nResource units used by host " + j + " to run container " + i + " [skip<=0]: ");
+                    System.out.print("\nResource units (cost) used by host " + j + " to run container " + i + " [skip<=0]: ");
                     try{
                         val = input.nextFloat();
                         if(val<=0){

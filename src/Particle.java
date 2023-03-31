@@ -56,8 +56,8 @@ public class Particle {
         Vector gDist=globalBestPos.sub(position);
 
         terms[0]=velocity.mul(inertia);//old velocity * inertia
-        terms[1]=pDist.mul(cognitive).mul(impulse.nextFloat(-randLim,randLim+1));//cognitive component * random
-        terms[2]=gDist.mul(social).mul(impulse.nextFloat(-randLim,randLim+1));//social component * random
+        terms[1]=pDist.mul(cognitive*(impulse.nextFloat(-randLim,randLim+1)));//cognitive component * random
+        terms[2]=gDist.mul(social*(impulse.nextFloat(-randLim,randLim+1)));//social component * random
 
         velocity=terms[0].add(terms[1]).add(terms[2]);
     }

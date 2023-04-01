@@ -6,7 +6,7 @@ It is almost complete, and currently looks like [this](https://youtu.be/KRO44ZWN
 
 ## How to run this program
 
-1. Install JRE, if you don't have it installed
+1. Install [Java](https://adoptium.net/), if you don't have it installed
 2. Open terminal in `src` folder
 3. If you are doing this the first time, run `javac *`, otherwise skip this step
 4. Run `java Optimizer`

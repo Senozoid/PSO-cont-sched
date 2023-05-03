@@ -6,10 +6,18 @@ It is almost complete, and currently looks like [this](https://youtu.be/KRO44ZWN
 
 ## How to run this program
 
+### Build from source (recommended)
+
 1. Install [Java](https://adoptium.net/), if you don't have it installed
 2. Open terminal in `src` folder
 3. If you are doing this the first time, run `javac *`, otherwise skip this step
 4. Run `java Optimizer`
+
+### Use executable installer (Windows only)
+
+1. Download the [installer](https://github.com/Senozoid/PSO-cont-sched/releases/latest/download/setup.exe)
+2. Run the setup
+3. Launch program from installed shortcuts
 
 ## How this program works
 

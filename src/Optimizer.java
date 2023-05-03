@@ -41,6 +41,7 @@ public class Optimizer {
         }
         System.out.print("\rEpoch "+(i-1)+" : ");
         declare(hive);
+        pause();
     }
 
     //search the space for the given number of epochs, with the given swarm
@@ -146,6 +147,19 @@ public class Optimizer {
                 Runtime.getRuntime().exec("clear");
         }catch(IOException | InterruptedException ex){
             System.out.print("\n");
+        }
+    }
+
+    //attempt to hold the console output screen
+    private static void pause(){
+        try{
+            System.out.print("\n");
+            if (System.getProperty("os.name").contains("Windows"))
+                new ProcessBuilder("cmd", "/c", "echo Press any key to exit && pause >nul").inheritIO().start().waitFor();
+            else
+                Runtime.getRuntime().exec("read -p \"Press any key to exit\"");
+        }catch(IOException | InterruptedException ex){
+            System.out.println("\nRuntime process failed (pause).");
         }
     }
 

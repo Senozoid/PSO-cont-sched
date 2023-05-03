@@ -6,16 +6,18 @@ It is almost complete, and currently looks like [this](https://youtu.be/KRO44ZWN
 
 ## How to run this program
 
-### Build from source (recommended)
+### Method 1: Build from source (recommended)
 
 1. Install [Java](https://adoptium.net/), if you don't have it installed
 2. Open terminal in `src` folder
 3. If you are doing this the first time, run `javac *`, otherwise skip this step
 4. Run `java Optimizer`
 
-### Use executable installer (Windows only)
+### Method 2: Use executable installer (Windows only)
 
-1. Download the [installer](https://github.com/Senozoid/PSO-cont-sched/releases/latest/download/setup.exe)
+**NOTE:** Since this is a relatively unknown executable with no code signing certificate, Microsoft Defender SmartScreen will show warnings and/or need extra clicks to allow it to download and run. You should always use [virustotal](https://www.virustotal.com/gui/home/url) or similar utilities to check the download url and scan the downloaded file with Microsoft Defender or some other antivirus to verify if an executable is safe to run.
+
+1. [Download](https://github.com/Senozoid/PSO-cont-sched/releases/latest/download/setup.exe) the installer
 2. Run the setup
 3. Launch program from installed shortcuts
 

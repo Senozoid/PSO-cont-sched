@@ -15,11 +15,12 @@ It is almost complete, and currently looks like [this](https://youtu.be/KRO44ZWN
 
 ### Method 2: Use executable installer (Windows only)
 
-**NOTE:** Since this is a relatively unknown executable with no code signing certificate, Microsoft Defender SmartScreen will show warnings and/or need extra clicks to allow it to download and run. You should always use [virustotal](https://www.virustotal.com/gui/home/url) or similar utilities to check the download url and scan the downloaded file with Microsoft Defender or some other antivirus to verify if an executable is safe to run.
+**NOTE:** Since this is a relatively unknown executable with no code signing certificate, Microsoft Defender SmartScreen will show warnings and/or need extra clicks to allow it to download and run. Regardless of wheher you trust the source, you should always use [virustotal](https://www.virustotal.com/gui/home/url) or similar utilities to check the download url and scan the downloaded file with Microsoft Defender or some other antivirus to verify if an executable is safe to run.
 
-1. [Download](https://github.com/Senozoid/PSO-cont-sched/releases/latest/download/setup.exe) the installer
-2. Run the setup
-3. Launch program from installed shortcuts
+1. Go to [releases](https://github.com/Senozoid/PSO-cont-sched/releases/latest)
+2. Download the installer
+3. Run the setup
+4. Launch program from installed shortcuts
 
 ## How this program works
 

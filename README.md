@@ -50,9 +50,10 @@ The "topography" of the generated map resembles an inverted pentahedron. Imagine
 
 ### Other details
 
-1. Particle Swarm Optimization does not guarantee the best possible solution, because the swarm may not have found it.
-2. The coordinates of a particle at any given epoch are always non-negative integers, because they represent indices.
-3. The fitness mapping, and the positions and velocities of each particle at each epoch, is stored in _log.txt_.
+1. The coordinates of a particle at any given epoch are always non-negative integers, because they represent indices.
+2. Particle Swarm Optimization does not guarantee the best possible solution, because the swarm may not have found it.
+3. The optimization performs best when the fitness function is differentiable (has a gradient at any point) in all directions.
+4. The fitness mapping, and the positions and velocities of each particle at each epoch, is stored in _log.txt_.
 
 ## Future plans
 

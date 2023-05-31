@@ -2,7 +2,7 @@
 
 This program attempts to demonstrate how Particle Swarm Optimization might be implemented for container scheduling. \
 Since we do not actually have a cloud implementation, the program has to rely on user input to define the scheduling problem. \
-It is almost complete, and currently looks like [this](https://youtu.be/KRO44ZWNkkk).
+It currently looks like [this](https://youtu.be/Aqmm-a-BFOg), and will not be updated in the foreseeable future.
 
 ## How to run this program
 
@@ -55,7 +55,7 @@ The "topography" of the generated map resembles an inverted pentahedron. Imagine
 3. The optimization performs best when the fitness function is differentiable (has a gradient at any point) in all directions.
 4. The fitness mapping, and the positions and velocities of each particle at each epoch, is stored in _log.txt_.
 
-## Future plans
+## Future plans (abandoned)
 
 1. Implement GUI
 2. Use something like CloudSim
